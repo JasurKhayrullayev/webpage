@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleLogin = () => {
+    if (password === 'Oybek') {
+      setLoggedIn(true);
+    } else {
+      setError('Incorrect password. Please try again.');
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!isLoggedIn ? (
+        <div>
+          <h1>Login to the Site</h1>
+          <label>Password:</label>
+          <input type="password" value={password} onChange={handlePasswordChange} />
+          <button onClick={handleLogin}>Login</button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+        </div>
+      ) : (
+        <div>
+          <h1>Welcome Oybek</h1>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default App;
